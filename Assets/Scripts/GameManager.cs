@@ -18,10 +18,8 @@ public class GameManager : MonoBehaviour
     }
 
     public int scoreValue = 0;
-    public int nbOfEnnemyKilled = 0;
     public bool isDead = false;
     public bool canPlayerMove = true;
-    public bool isShooting = false;
 
     [SerializeField] Text _score;
 
