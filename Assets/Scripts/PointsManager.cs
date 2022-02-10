@@ -81,7 +81,7 @@ public class PointsManager : MonoBehaviour
                     p.ChangeStateTo(1);
             }
         }
-        print("changed path");
+        //print("changed path");
     }
 
     public void ResetPath()
@@ -94,15 +94,15 @@ public class PointsManager : MonoBehaviour
             allpoints.Add(Level.transform.GetChild(i).GetComponent<SinglePoint>());
             allpoints[i].ChangeStateTo(0);
         }
-        print("reset modafuka");
+        //print("reset modafuka");
     }
 
     public void ChangePath(SinglePoint position)
     {
-        print("changing...");
+        //print("changing...");
         int indexAtLeft = GetNextIndexAtDirection(position, Direction.Left);
         int indexAtRight = GetNextIndexAtDirection(position, Direction.Right);
-        print("indexAtLeft : " + indexAtLeft + "- indexAtRight : " + indexAtRight);
+        //print("indexAtLeft : " + indexAtLeft + "- indexAtRight : " + indexAtRight);
         ResetPath();
         position.ChangeStateTo(1);
         SetupPathByDirection(position, Direction.Left, indexAtLeft);
@@ -119,7 +119,7 @@ public class PointsManager : MonoBehaviour
                 return i;
             } 
         }
-        Debug.LogError("Didn't find any active cell next door...");
+        //Debug.LogError("Didn't find any active cell next door...");
         return -1;
     }
 }

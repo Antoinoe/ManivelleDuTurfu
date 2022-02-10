@@ -9,6 +9,18 @@ public class PlayerController : MonoBehaviour
     bool _hasWin = false;
     SinglePoint _currentPointOn;
 
+    public static PlayerController instance;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            print("PointsManager Singleton Already Existing");
+            return;
+        }
+        instance = this;
+    }
+
     private void Start()
     {
         #region teleport player to first cell
@@ -40,7 +52,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region debug 
-        print(_playerDirection);
+        //print(_playerDirection);
         #endregion
             
     }
@@ -58,11 +70,11 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
-        print("cannot move in this direction");
+        //print("cannot move in this direction");
     }
     void ChangePath()
     {
-        print("ESPACE");
+        //print("ESPACE");
         PointsManager.instance.ChangePath(_currentPointOn);
     }
 
