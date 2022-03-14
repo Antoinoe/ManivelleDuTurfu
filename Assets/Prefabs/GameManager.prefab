@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2651895568498254775}
   - component: {fileID: 2651895568498254774}
+  - component: {fileID: 3422901846330222574}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -43,9 +44,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddeca5f872a75bb43b5b1378c25a1bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _WinPannel: {fileID: 0}
+  _LosePannel: {fileID: 0}
+  camMove: 1
   scoreValue: 0
-  nbOfEnnemyKilled: 0
   isDead: 0
   canPlayerMove: 1
-  isShooting: 0
   _score: {fileID: 0}
+--- !u!114 &3422901846330222574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2651895568498254772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f14aa348c98af7438578957a94cdd03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dir: 1
+  vitesse: 0
+  maxVitesse: 30
+  circle: {fileID: 0}
+  vitesseChute: 0.5

@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
+    [SerializeField] private GameObject winPannel, losePannel;
+    public bool camMove = true;
 
     private void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             print("GameManager Singleton Already Existing");
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     public int scoreValue = 0;
@@ -25,11 +28,23 @@ public class GameManager : MonoBehaviour
 
     public void Win()
     {
-
+        print("you won");
+        //_WinPannel.SetActive(true);
+        
+        if (SceneManager.GetSceneByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1)!= null)//move a 
+            StartCoroutine(WLDelay(SceneManager.GetActiveScene().buildIndex + 1, 1));
+        else
+        {
+            //show thanks for playing
+        }
+        
     }
 
     public void Loose()
     {
+        //_LosePannel.SetActive(true);
+        print("you lost");
+        StartCoroutine(WLDelay(SceneManager.GetActiveScene().buildIndex, 0.2f));
 
     }
 
@@ -38,5 +53,13 @@ public class GameManager : MonoBehaviour
         scoreValue = score;
         _score.text = scoreValue.ToString();
     }
+
+    IEnumerator WLDelay(int a, float time)
+    {
+        camMove = false;
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene(a);
+    }
+
 
 }

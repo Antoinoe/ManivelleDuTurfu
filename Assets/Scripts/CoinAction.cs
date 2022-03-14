@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CoinAction : MonoBehaviour
 {
-    [SerializeField] int value;
-    [SerializeField] Color color;
+    [SerializeField] private int value;
+    [SerializeField] private Color color;
     void Start()
     {
         GetComponent<SpriteRenderer>().color = color;
@@ -19,11 +19,9 @@ public class CoinAction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
-        {
-            print("touched played bruh");
-            GameManager.instance.AddScore(value);
-            Destroy(gameObject);
-        }
+        if (collision.tag != "Player") return;
+        print("touched played bruh");
+        GameManager.Instance.AddScore(value);
+        Destroy(gameObject);
     }
 }

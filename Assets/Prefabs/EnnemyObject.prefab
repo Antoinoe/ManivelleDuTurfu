@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boundary1: {fileID: 4883336037615969454}
   boundary2: {fileID: 5345152874447618567}
-  speed: 2
+  speed: 50
   canMove: 1
 --- !u!50 &4579674583806417968
 Rigidbody2D:

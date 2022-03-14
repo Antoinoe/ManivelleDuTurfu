@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnnemyScript : MonoBehaviour
 {
     [SerializeField] GameObject boundary1, boundary2;
-    [SerializeField] float speed;
+    [SerializeField] private float speed;
     public bool canMove = true;
 
-    Vector2 _directionHeading;
-    Rigidbody2D _rb;
-    GameObject _currentDestination,_previousBoundaryTouched;
-    void Start()
+    private Vector2 _directionHeading;
+    private Rigidbody2D _rb;
+    private GameObject _currentDestination,_previousBoundaryTouched;
+    private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         //transform.position = boundary1.transform.position;
@@ -20,7 +20,7 @@ public class EnnemyScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (canMove)
         {
@@ -30,27 +30,16 @@ public class EnnemyScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        if(collision.tag == "Boundary")
-        {
-            print("changement de sens");
-            //change de sens
-            if (_currentDestination == boundary1)
-            {
-                SetTrajectory(boundary1);
-            }
-            else
-            {
-                SetTrajectory(boundary2);
-            }
-        }
+        if (collision.tag != "Boundary") return;
+        //change de sens
+        SetTrajectory(_currentDestination == boundary1 ? boundary1 : boundary2);
     }
 
-    void SetTrajectory(GameObject destination)
+    private void SetTrajectory(GameObject destination)
     {
         //StartCoroutine(Delay(_previousBoundaryTouched, 1.5f));
         _directionHeading = (destination.transform.position - transform.position).normalized;
-        print(_directionHeading);
+        //print(_directionHeading);
         if(destination == boundary1)
         {
             _currentDestination = boundary2;

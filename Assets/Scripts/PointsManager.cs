@@ -24,59 +24,59 @@ public class PointsManager : MonoBehaviour
         SetupPath(startPoint);
     }
 
-    public void SetupPath(SinglePoint point)
+    private void SetupPath(SinglePoint point)
     {
         SinglePoint basePoint = point;
         SinglePoint currentPoint = point;
         ResetPath();
         currentPoint.ChangeStateTo(1);
 
-        while (currentPoint._leftBranch[0] != null)
+        while (currentPoint.leftBranch[0] != null)
         {
-                currentPoint = currentPoint._leftBranch[0];
+                currentPoint = currentPoint.leftBranch[0];
                 currentPoint.ChangeStateTo(1);
         }
         currentPoint = basePoint; //reset de la pos
-        while (currentPoint._rightBranch[0] != null)
+        while (currentPoint.rightBranch[0] != null)
         {
-                currentPoint = currentPoint._rightBranch[0];
+                currentPoint = currentPoint.rightBranch[0];
                 currentPoint.ChangeStateTo(1);
         }
     }
 
-    void SetupPathByDirection(SinglePoint p, Direction d, int it)
+    private static void SetupPathByDirection(SinglePoint p, Direction d, int it)
     {
-        bool doOnce = true;
+        var doOnce = true;
         if(d == Direction.Right)
         {
-            while (p._rightBranch[0] != null)
+            while (p.rightBranch[0] != null)
             {
                 if (doOnce)
                 {
-                    if (it++ >= p._rightBranch.Length-1)
+                    if (it++ >= p.rightBranch.Length-1)
                         it = 0;
-                    p = p._rightBranch[it];
+                    p = p.rightBranch[it];
                     doOnce = false;
                 }
                 else
-                    p = p._rightBranch[0];
+                    p = p.rightBranch[0];
                 if (p != null)
                     p.ChangeStateTo(1);
             }
         }
         else
         {
-            while (p._leftBranch[0] != null)
+            while (p.leftBranch[0] != null)
             {
                 if (doOnce)
                 {
-                    if (it++ >= p._leftBranch.Length-1)
+                    if (it++ >= p.leftBranch.Length-1)
                         it = 0;
-                    p = p._leftBranch[it];
+                    p = p.leftBranch[it];
                     doOnce = false;
                 }
                 else
-                    p = p._leftBranch[0];
+                    p = p.leftBranch[0];
                 if(p!=null)
                     p.ChangeStateTo(1);
             }
@@ -84,12 +84,12 @@ public class PointsManager : MonoBehaviour
         //print("changed path");
     }
 
-    public void ResetPath()
+    private void ResetPath()
     {
-        List<SinglePoint> allpoints = new List<SinglePoint>();
+        var allpoints = new List<SinglePoint>();
 
         //Reset all SinglePointState
-        for (int i = 0; i < Level.transform.childCount; i++)
+        for (var i = 0; i < Level.transform.childCount; i++)
         {
             allpoints.Add(Level.transform.GetChild(i).GetComponent<SinglePoint>());
             allpoints[i].ChangeStateTo(0);
@@ -100,8 +100,8 @@ public class PointsManager : MonoBehaviour
     public void ChangePath(SinglePoint position)
     {
         //print("changing...");
-        int indexAtLeft = GetNextIndexAtDirection(position, Direction.Left);
-        int indexAtRight = GetNextIndexAtDirection(position, Direction.Right);
+        var indexAtLeft = GetNextIndexAtDirection(position, Direction.Left);
+        var indexAtRight = GetNextIndexAtDirection(position, Direction.Right);
         //print("indexAtLeft : " + indexAtLeft + "- indexAtRight : " + indexAtRight);
         ResetPath();
         position.ChangeStateTo(1);
@@ -109,12 +109,12 @@ public class PointsManager : MonoBehaviour
         SetupPathByDirection(position, Direction.Right, indexAtRight);
     }
 
-    int GetNextIndexAtDirection(SinglePoint p, Direction d)
+    private static int GetNextIndexAtDirection(SinglePoint p, Direction d)
     {
-        SinglePoint[] la = d==Direction.Left ?p._leftBranch : p._rightBranch;
-        for (int i =0; i<la.Length; i++)
+        var la = d==Direction.Left ?p.leftBranch : p.rightBranch;
+        for (var i =0; i<la.Length; i++)
         {
-            if (la[i]._isActive && la[i] !=null)
+            if (la[i] && la[i].isActive)
             {
                 return i;
             } 
